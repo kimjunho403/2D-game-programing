@@ -9,12 +9,14 @@ class Enemy:
     images = {}
     FPS = 12
     def __init__(self):
+        if len(Enemy.images) == 0:
+            Enemy.load_all_images()
+
         self.pos = (random.choice([-10, get_canvas_width()+10]), 140)
         self.delta = 0.1, 0.1
         self.find_nearest_pos()
-        #char = random.choice(['male', 'female'])
-        char = 'green'
-        self.load_images(char)
+        char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
+        self.images = Enemy.load_images(char)
         self.action = 'Walk'
         self.speed = 200
         self.fidx = 0
@@ -48,28 +50,37 @@ class Enemy:
         self.target = target
         self.delta = dx / distance, dy / distance
 
-    def load_images(self, char):
+    @staticmethod
+    def load_all_images():
+        Enemy.load_images('armor')
+        Enemy.load_images('blue')
+        Enemy.load_images('green')
+        Enemy.load_images('red')
+        Enemy.load_images('gray')
+
+    @staticmethod
+    def load_images(char):
         if char in Enemy.images:
-            self.images = Enemy.images[char]
-            return
+            return Enemy.images[char]
+
         images = {}
         count = 0
         file_fmt = '%s/alienfiles/%s/%s (%d).png'
         for action in Enemy.ACTIONS:
             action_images = []
-            count = 0
+            n = 0
             while True:
-                n = count + 1
+                n += 1
                 fn = file_fmt % (gobj.RES_DIR, char, action, n)
-                try:
+                if os.path.isfile(fn):
                     action_images.append(gfw.image.load(fn))
-                except IOError:
+                else:
                     break
-                count = n
+                count += 1
             images[action] = action_images
-        self.images = images
-        print('%d images loaded for %s' % (count, char))
         Enemy.images[char] = images
+        print('%d images loaded for %s' % (count, char))
+        return images
 
     def update(self):
         self.time += gfw.delta_time
