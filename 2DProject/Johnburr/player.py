@@ -20,12 +20,15 @@ class Player:
         self.sit =0
     def fire(self):
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
+        if self.sit == 1:
+            bullet = Bullet(self.x, self.y-8, self.dir, 700)
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def draw(self):
         sx = self.fidx * 53
         sy = self.action * 60
         self.image.clip_draw(140 + sx, 430  -sy, 40, 60, self.x, self.y, 50, 80)
+
 
     def update(self):
         self.time += gfw.delta_time
@@ -59,12 +62,14 @@ class Player:
                     if self.sit == 1:
                         self.fidx = 3
                         self.action = 0
+
                 elif self.dir == 1:
                     self.action = 0
                     self.fidx = 0
                     if self.sit == 1:
                         self.fidx = 2
                         self.action = 0
+
             elif self.y !=110:
                 if self.dir == 0:
                     self.fidx = 5

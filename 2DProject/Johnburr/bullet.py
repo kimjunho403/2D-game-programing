@@ -20,7 +20,6 @@ class Bullet:
         elif self.dir == 0:
             self.x -= self.dx * gfw.delta_time
 
-
         if self.x > get_canvas_width() + Bullet.SIZE:
             self.remove()
 

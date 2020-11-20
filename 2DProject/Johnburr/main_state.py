@@ -1,12 +1,14 @@
 from pico2d import *
 import gfw
 from player import Player
+from enemy import Enemy
+import gobj
 import spaceship
 import bg
 
 def enter():
     global player
-    gfw.world.init(['bg','spaceship','bullet','player'])
+    gfw.world.init(['bg','spaceship','enemy','bullet','player'])
     player = Player()
     bg.init(player)
     spaceship.init()
@@ -14,10 +16,19 @@ def enter():
     gfw.world.add(gfw.layer.spaceship, spaceship)
     gfw.world.add(gfw.layer.player,player)
 
+    global enemy_time
+    enemy_time = 1
+
 def exit():
     pass
 def update():
     gfw.world.update()
+
+    global enemy_time
+    enemy_time -= gfw.delta_time
+    if enemy_time <= 0:
+        gfw.world.add(gfw.layer.enemy, Enemy())
+        enemy_time = 5
 
 
 def draw():

@@ -12,7 +12,7 @@ def draw():
     px,py = player.x, player.y
     dx, dy = x-px,y -py
     space.draw(x+ dx * 0.02, y+dy *0.02)
-    floor.draw(730,45,1460,90)
+    floor.draw(840,45,1690,90)
 
 def update():
     pass
