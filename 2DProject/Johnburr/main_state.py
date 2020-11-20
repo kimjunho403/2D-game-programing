@@ -14,10 +14,12 @@ def enter():
     spaceship.init()
     gfw.world.add(gfw.layer.bg,bg)
     gfw.world.add(gfw.layer.spaceship, spaceship)
-    gfw.world.add(gfw.layer.player,player)
+    gfw.world.add(gfw.layer.player, player)
 
     global enemy_time
     enemy_time = 1
+
+    Enemy.load_all_images()
 
 def exit():
     pass
