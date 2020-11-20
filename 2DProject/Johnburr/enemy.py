@@ -2,6 +2,7 @@ import random
 from pico2d import *
 import gfw
 import gobj
+from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 
 class Enemy:
     POSITIONS = [( 1680// 2, 140)]
@@ -14,13 +15,15 @@ class Enemy:
 
         self.pos = (random.choice([-10, get_canvas_width()+10]), 140)
         self.delta = 0.1, 0.1
-        self.find_nearest_pos()
+        #self.find_nearest_pos()
         char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
         self.images = Enemy.load_images(char)
         self.action = 'Walk'
         self.speed = 200
         self.fidx = 0
         self.time = 0
+        self.patrol_order = -1
+        self.build_behavior_tree()
 
     def find_nearest_pos(self):
         x, y = self.pos
@@ -37,8 +40,12 @@ class Enemy:
         self.set_patrol_target()
 
     def set_patrol_target(self):
+        if self.patrol_order < 0:
+            self.find_nearest_pos()
+            return BehaviorTree.SUCCESS
         self.set_target(Enemy.POSITIONS[self.patrol_order])
         self.patrol_order = (self.patrol_order + 1) % len(Enemy.POSITIONS)
+        return BehaviorTree.SUCCESS
 
     def set_target(self, target):
         x,y = self.pos
@@ -83,6 +90,9 @@ class Enemy:
         return images
 
     def update(self):
+        self.bt.run()
+
+    def update_position(self):
         self.time += gfw.delta_time
         self.fidx = round(self.time * Enemy.FPS)
 
@@ -100,11 +110,20 @@ class Enemy:
             done = True
         self.pos = x,y
         if done:
-            self.set_patrol_target()
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.RUNNING
 
     def draw(self):
         images = self.images[self.action]
         image = images[self.fidx % len(images)]
         flip = 'h' if self.delta[0] < 0 else ''
         image.composite_draw(0, flip, *self.pos, 60, 120)
+
+    def build_behavior_tree(self):
+        node_gnp = LeafNode("Get Next Position", self.set_patrol_target)
+        node_mtt = LeafNode("Move to Target", self.update_position)
+        patrol_node = SequenceNode("Patrol")
+        patrol_node.add_children(node_gnp, node_mtt)
+        self.bt = BehaviorTree(patrol_node)
 
