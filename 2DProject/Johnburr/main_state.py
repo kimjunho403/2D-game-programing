@@ -5,7 +5,7 @@ import bg
 
 def enter():
     global player
-    gfw.world.init(['bg','player'])
+    gfw.world.init(['bg','bullet','player'])
     player = Player()
     bg.init(player)
     gfw.world.add(gfw.layer.bg,bg)

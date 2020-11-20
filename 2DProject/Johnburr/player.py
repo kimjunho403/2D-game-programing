@@ -1,8 +1,10 @@
 from pico2d import *
 import gfw
+from bullet import *
 RES_DIR = './res'
 
 class Player:
+    SPARK_OFFSET = 5
     def __init__(self):
         self.x = get_canvas_width() // 2
         self.y = 110
@@ -16,6 +18,9 @@ class Player:
         self.gravity = 3.0
         self.time =0
         self.sit =0
+    def fire(self):
+        bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 600)
+        gfw.world.add(gfw.layer.bullet, bullet)
 
     def draw(self):
         sx = self.fidx * 53
@@ -80,9 +85,10 @@ class Player:
             elif e.key == SDLK_DOWN:
                 self.dy -= 3
                 self.sit = 1
-
             elif e.key == SDLK_UP:
                 self.dy += 7
+            if e.key == SDLK_SPACE:
+                self.fire()
            # elif e.key == SDLK_SPACE:
             #    self.fire()
         elif e.type == SDL_KEYUP:
