@@ -9,3 +9,8 @@ def draw():
     spaceship.draw(x, 200,180,252)
 def update():
     pass
+
+#def get_bb(self):
+#    hw = 50
+#    hh = 50
+#    return 180- hw, 252 - hh,180 + hw, 252+ hh

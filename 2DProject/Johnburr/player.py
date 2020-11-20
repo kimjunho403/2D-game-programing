@@ -6,8 +6,8 @@ RES_DIR = './res'
 class Player:
     SPARK_OFFSET = 5
     def __init__(self):
-        self.x = get_canvas_width() // 2
-        self.y = 110
+        self.pos = get_canvas_width() // 2,110
+        self.x, self.y = self.pos
         self.dx, self.dy = 0, 0
         self.hh, self.hw =0, 0
         self.fidx = 0
@@ -31,6 +31,7 @@ class Player:
 
 
     def update(self):
+
         self.time += gfw.delta_time
         self.x += self.dx * self.speed * gfw.delta_time
         self.y += self.dy * self.speed * gfw.delta_time- self.gravity
@@ -77,6 +78,8 @@ class Player:
                 elif self.dir == 1:
                     self.fidx = 4
                     self.action = 0
+        self.pos = self.x,self.y
+
 
     def handle_event(self, e):
         prev_dx = self.dx
@@ -106,5 +109,12 @@ class Player:
                 self.sit = 0
             elif e.key == SDLK_UP:
                 self.dy -= 7
+
+
+    def get_bb(self):
+        hw = 20
+        hh = 30
+        x,y = self.x ,self.y
+        return x - hw, y - hh, x + hw, y + hh
 
 

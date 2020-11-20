@@ -21,10 +21,11 @@ def enter():
 
     Enemy.load_all_images()
 
-def exit():
-    pass
+
+
 def update():
     gfw.world.update()
+
 
     global enemy_time
     enemy_time -= gfw.delta_time
@@ -36,6 +37,8 @@ def update():
 def draw():
     gfw.world.draw()
 
+    gobj.draw_collision_box()
+
 def handle_event(e):
     global player
     if e.type == SDL_QUIT:
@@ -46,6 +49,8 @@ def handle_event(e):
 
     player.handle_event(e)
 
+def exit():
+    pass
 
 if  __name__ == '__main__':
     gfw.run_main()

@@ -9,19 +9,26 @@ class Enemy:
     ACTIONS = ['Attack','Dead','Idle','Walk']
     images = {}
     FPS = 12
+    CHASE_DISTANCE_SQ = 500 ** 2
+    IDLE_INTERVAL = 2.0
     def __init__(self):
         if len(Enemy.images) == 0:
             Enemy.load_all_images()
 
+
         self.pos = (random.choice([-10, get_canvas_width()+10]), 140)
         self.delta = 0.1, 0.1
+        self.life = 100
+        self.power = 1
         #self.find_nearest_pos()
         char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
         self.images = Enemy.load_images(char)
-        self.action = 'Walk'
+        self.action = 'Idle'
         self.speed = 200
         self.fidx = 0
         self.time = 0
+        layer = list(gfw.world.objects_at(gfw.layer.player))
+        self.player = layer[0]
         self.patrol_order = -1
         self.build_behavior_tree()
 
@@ -56,6 +63,69 @@ class Enemy:
 
         self.target = target
         self.delta = dx / distance, dy / distance
+
+    def find_player(self):
+        dist_sq = gobj.distance_sq(self.player.pos, self.pos)
+        if dist_sq < Enemy.CHASE_DISTANCE_SQ:
+            if self.patrol_order >= 0:
+                self.patrol_order = -1
+                self.action = 'Attack'
+            return BehaviorTree.SUCCESS
+        else:
+            if self.action == 'Attack':
+                self.action = 'Idle'
+                self.time = 0
+            else:
+                self.action = 'Walk'
+
+            return BehaviorTree.FAIL
+
+    def move_to_player(self):
+        self.set_target(self.player.pos)
+        self.update_position()
+
+        collides = gobj.collides_box(self, self.player)
+        if collides:
+            self.action = 'Dead'
+            self.time = 0
+        return BehaviorTree.SUCCESS
+
+    def follow_patrol_positions(self):
+        if self.patrol_order < 0:
+            self.find_nearest_pos()
+        done = self.update_position()
+        if done:
+            self.set_patrol_target()
+
+    def do_idle(self):
+        if self.action != 'Idle':
+            return BehaviorTree.FAIL
+        self.time += gfw.delta_time
+        self.fidx = round(self.time * Enemy.FPS)
+        if self.time >= Enemy.IDLE_INTERVAL:
+            self.action = 'Walk'
+            return BehaviorTree.FAIL
+        return BehaviorTree.SUCCESS
+
+    def do_attack(self):
+        if self.action != 'Attack':
+            return BehaviorTree.FAIL
+        self.time += gfw.delta_time
+        self.fidx = round(self.time * Enemy.FPS)
+
+
+        return BehaviorTree.SUCCESS
+
+
+    def do_dead(self):
+        if self.action != 'Dead':
+            return BehaviorTree.FAIL
+        self.time += gfw.delta_time
+        self.fidx = round(self.time * Enemy.FPS)
+        if self.fidx >= len(self.images['Dead']):
+            self.remove()
+
+        return BehaviorTree.SUCCESS
 
     @staticmethod
     def load_all_images():
@@ -109,10 +179,16 @@ class Enemy:
             y = ty
             done = True
         self.pos = x,y
-        if done:
-            return BehaviorTree.SUCCESS
-        else:
-            return BehaviorTree.RUNNING
+
+        return done
+
+    def remove(self):
+        gfw.world.remove(self)
+
+    def decrease_life(self, amount):
+        self.life -= amount
+        return self.life <= 0
+
 
     def draw(self):
         images = self.images[self.action]
@@ -120,10 +196,53 @@ class Enemy:
         flip = 'h' if self.delta[0] < 0 else ''
         image.composite_draw(0, flip, *self.pos, 60, 120)
 
+    def get_bb(self):
+
+        x,y = self.pos
+        return x - 30, y - 60, x + 30, y + 60
+
+
     def build_behavior_tree(self):
-        node_gnp = LeafNode("Get Next Position", self.set_patrol_target)
-        node_mtt = LeafNode("Move to Target", self.update_position)
-        patrol_node = SequenceNode("Patrol")
-        patrol_node.add_children(node_gnp, node_mtt)
-        self.bt = BehaviorTree(patrol_node)
+        #node_gnp = LeafNode("Get Next Position", self.set_patrol_target)
+        #node_mtt = LeafNode("Move to Target", self.update_position)
+        #patrol_node = SequenceNode("Patrol")
+        #patrol_node.add_children(node_gnp, node_mtt)
+        #self.bt = BehaviorTree(patrol_node)
+        self.bt = BehaviorTree.build({
+            "name": "PatrolChase",
+            "class": SelectorNode,
+            "children": [
+                {
+                    "class": LeafNode,
+                    "name": "Idle",
+                    "function": self.do_idle,
+                },
+                {
+                    "class": LeafNode,
+                    "name": "Dead",
+                    "function": self.do_dead,
+                },
+                {
+                    "name": "Chase",
+                    "class": SequenceNode,
+                    "children": [
+                        {
+                            "class": LeafNode,
+                            "name": "Find Player",
+                            "function": self.find_player,
+                        },
+                        {
+                            "class": LeafNode,
+                            "name": "Move to Player",
+                            "function": self.do_attack,
+                        },
+                    ],
+                },
+                {
+                    "class": LeafNode,
+                    "name": "Follow Patrol positions",
+                    "function": self.follow_patrol_positions,
+                },
+            ],
+        })
 
