@@ -19,7 +19,7 @@ class Player:
         self.time =0
         self.sit =0
     def fire(self):
-        bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 600)
+        bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def draw(self):

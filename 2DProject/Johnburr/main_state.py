@@ -1,14 +1,17 @@
 from pico2d import *
 import gfw
 from player import Player
+import spaceship
 import bg
 
 def enter():
     global player
-    gfw.world.init(['bg','bullet','player'])
+    gfw.world.init(['bg','spaceship','bullet','player'])
     player = Player()
     bg.init(player)
+    spaceship.init()
     gfw.world.add(gfw.layer.bg,bg)
+    gfw.world.add(gfw.layer.spaceship, spaceship)
     gfw.world.add(gfw.layer.player,player)
 
 def exit():
