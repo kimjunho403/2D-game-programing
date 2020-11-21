@@ -12,6 +12,7 @@ class Enemy:
     FPS = 12
     CHASE_DISTANCE_SQ = 600 ** 2
     IDLE_INTERVAL = 2.0
+    char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
     def __init__(self):
         if len(Enemy.images) == 0:
             Enemy.load_all_images()

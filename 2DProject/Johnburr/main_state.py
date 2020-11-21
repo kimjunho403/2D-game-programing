@@ -27,15 +27,24 @@ def check_enemy(e):
         if gobj.collides_box(b, e):
             dead = e.decrease_life(b.power)
             if dead:
-                print('%d ' % (e.life))
+
                 e.action = 'Dead'
                 e.do_dead()
             b.remove()
             return
 
+def check_enemy_bullet(eb):
+        if gobj.collides_box(eb, player):
+            player.decrease_life(eb.power)
+            eb.remove()
+            print('%d ' % (player.life))
+            return
+
 def update():
     gfw.world.update()
     enemy_gen.update()
+    for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
+        check_enemy_bullet(eb)
 
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
@@ -44,7 +53,7 @@ def update():
 def draw():
     gfw.world.draw()
 
-    gobj.draw_collision_box()
+    #gobj.draw_collision_box()
 
 def handle_event(e):
     global player

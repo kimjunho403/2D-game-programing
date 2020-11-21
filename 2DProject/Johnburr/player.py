@@ -17,7 +17,7 @@ class Player:
         self.speed =100
         self.gravity = 3.0
         self.time =0
-
+        self.life =50
         self.sit =0
     def fire(self):
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
@@ -117,5 +117,9 @@ class Player:
         hh = 30
         x,y = self.x ,self.y
         return x - hw, y - hh, x + hw, y + hh
+
+    def decrease_life(self, amount):
+        self.life -= amount
+        return self.life <= 0
 
 
