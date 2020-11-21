@@ -6,18 +6,25 @@ RES_DIR = './res'
 class Player:
     SPARK_OFFSET = 5
     def __init__(self):
+
         self.pos = get_canvas_width() // 2,110
         self.x, self.y = self.pos
         self.dx, self.dy = 0, 0
         self.hh, self.hw =0, 0
         self.fidx = 0
         self.image = load_image(RES_DIR + '/player.png')
+        self.image_hp = load_image(RES_DIR + '/player_hp.png')
+        self.image_jp_hp = load_image(RES_DIR + '/jp_hp.png')
         self.action = 0
         self.dir = 0
         self.speed =100
         self.gravity = 3.0
         self.time =0
-        self.life =50
+        self.life =30
+        self.jp_time =0
+        self.jp_power = 30
+        self.jp_time_2 = 0
+        self.delta_jp = 0
         self.sit =0
     def fire(self):
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
@@ -29,11 +36,17 @@ class Player:
         sx = self.fidx * 53
         sy = self.action * 60
         self.image.clip_draw(140 + sx, 430  -sy, 40, 60, self.x, self.y, 50, 80)
+        for n in range(self.life):
+            self.image_hp.draw(self.x + 50, self.y+n*5)
+        for n in range(self.jp_power):
+            self.image_jp_hp.draw(self.x + 75, self.y + n * 5)
+
 
 
     def update(self):
-
         self.time += gfw.delta_time
+        self.jp_time += gfw.delta_time
+        self.jp_time_2 +=gfw.delta_time
         self.x += self.dx * self.speed * gfw.delta_time
         self.y += self.dy * self.speed * gfw.delta_time- self.gravity
         self.hw, self.hh = 0, 110
@@ -81,6 +94,19 @@ class Player:
                     self.action = 0
         self.pos = self.x,self.y
 
+        if self.jp_power > 30:
+            self.jp_power = 30
+        if self.jp_power < 0:
+            self.jp_power = 0
+        if self.jp_time > 1 and self.delta_jp != 1:
+            self.jp_power += 2
+            self.jp_time = 0
+        if self.jp_time_2 > 0.1:
+            self.jp_power -= self.delta_jp
+            self.jp_time_2 = 0
+
+
+
 
     def handle_event(self, e):
         prev_dx = self.dx
@@ -96,6 +122,7 @@ class Player:
                 self.sit = 1
             elif e.key == SDLK_UP:
                 self.dy += 7
+                self.delta_jp =1
             if e.key == SDLK_SPACE:
                 self.fire()
            # elif e.key == SDLK_SPACE:
@@ -110,6 +137,7 @@ class Player:
                 self.sit = 0
             elif e.key == SDLK_UP:
                 self.dy -= 7
+                self.delta_jp = 0
 
 
     def get_bb(self):

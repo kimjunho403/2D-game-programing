@@ -6,7 +6,7 @@ from enemy_bullet import *
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 
 class Enemy:
-    POSITIONS = [( 1680// 2, 140)]
+    POSITIONS = [( 1680// 2, 140),( 1680, 140),(0 , 140)]
     ACTIONS = ['Attack','Dead','Idle','Walk']
     images = {}
     FPS = 12

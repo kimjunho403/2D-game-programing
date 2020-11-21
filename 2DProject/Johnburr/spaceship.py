@@ -18,3 +18,10 @@ class Spaceship:
         hw = self.image.w // 2
         hh = self.image.h // 2
         return self.x - hw, self.y - hh, self.x + hw, self.y + hh-60
+
+    def decrease_life(self, amount):
+        self.life -= amount
+        return self.life <= 0
+
+    def remove(self):
+        gfw.world.remove(self)

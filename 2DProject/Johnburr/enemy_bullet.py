@@ -11,7 +11,7 @@ class Enemy_Bullet:
         self.speed = speed
         self.dir =dir
         self.image = load_image(RES_DIR + '/enemy_bullet.png')
-        self.power = 10
+        self.power = 1
         self.time =0
         layer = list(gfw.world.objects_at(gfw.layer.player))
         self.player = layer[0]

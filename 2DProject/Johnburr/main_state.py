@@ -8,7 +8,7 @@ import bg
 import enemy_gen
 
 def enter():
-    global player
+    global player, spaceship
     gfw.world.init(['bg','spaceship','enemy_bullet','enemy','bullet','player'])
     player = Player()
     bg.init(player)
@@ -16,9 +16,6 @@ def enter():
     gfw.world.add(gfw.layer.bg,bg)
     gfw.world.add(gfw.layer.spaceship, spaceship)
     gfw.world.add(gfw.layer.player, player)
-
-    global enemy_time
-    enemy_time = 1
 
     Enemy.load_all_images()
 
@@ -37,12 +34,18 @@ def check_enemy_bullet(eb):
         if gobj.collides_box(eb, player):
             player.decrease_life(eb.power)
             eb.remove()
-            print('%d ' % (player.life))
+            return
+        if gobj.collides_box(eb, spaceship):
+            spaceship_dead = spaceship.decrease_life(eb.power)
+            if spaceship_dead:
+                spaceship.remove()
+            eb.remove()
             return
 
 def update():
     gfw.world.update()
     enemy_gen.update()
+
     for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
         check_enemy_bullet(eb)
 

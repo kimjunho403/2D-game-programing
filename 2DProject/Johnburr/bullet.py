@@ -10,7 +10,7 @@ class Bullet:
         self.dx = speed
         self.dir =dir
         self.image = load_image(RES_DIR + '/bullet.png')
-        self.power = 10
+        self.power = 30
         self.x, self.y = self.pos
 
     def draw(self):
