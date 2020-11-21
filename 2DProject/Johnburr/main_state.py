@@ -9,11 +9,11 @@ import bg
 import enemy_gen
 
 def enter():
-    global player, spaceship
+    global player, spaceship, timer
     gfw.world.init(['bg','spaceship','enemy_bullet','enemy','bullet','player','timer'])
     player = Player()
-    bg.init(player)
     timer = Timer()
+    bg.init(player)
     spaceship = Spaceship()
     gfw.world.add(gfw.layer.bg,bg)
     gfw.world.add(gfw.layer.spaceship, spaceship)
@@ -35,8 +35,8 @@ def check_enemy(e):
 
 def check_spaceship():
         if gobj.collides_box(spaceship, player):
-            print('ok')
-            return
+            player.boarding()
+            spaceship.is_boarding =1
 
 
 def check_enemy_bullet(eb):
@@ -54,11 +54,10 @@ def check_enemy_bullet(eb):
 def update():
     gfw.world.update()
     enemy_gen.update()
-    check_spaceship()
-
+    if timer.time == 0:
+        check_spaceship()
     for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
         check_enemy_bullet(eb)
-
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
 

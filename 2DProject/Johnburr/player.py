@@ -25,7 +25,9 @@ class Player:
         self.jp_power = 30
         self.jp_time_2 = 0
         self.delta_jp = 0
+        self.is_boarding = 0
         self.sit =0
+
     def fire(self):
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
         if self.sit == 1:
@@ -35,11 +37,13 @@ class Player:
     def draw(self):
         sx = self.fidx * 53
         sy = self.action * 60
-        self.image.clip_draw(140 + sx, 430  -sy, 40, 60, self.x, self.y, 50, 80)
-        for n in range(self.life):
-            self.image_hp.draw(self.x + 50, self.y+n*5)
-        for n in range(self.jp_power):
-            self.image_jp_hp.draw(self.x + 75, self.y + n * 5)
+        if self.is_boarding == 0:
+            self.image.clip_draw(140 + sx, 430 - sy, 40, 60, self.x, self.y, 50, 80)
+            for n in range(self.life):
+                self.image_hp.draw(self.x + 50, self.y + n * 5)
+            for n in range(self.jp_power):
+                self.image_jp_hp.draw(self.x + 75, self.y + n * 5)
+
 
 
 
@@ -54,6 +58,9 @@ class Player:
         self.y = clamp(self.hh, self.y, get_canvas_height() - 30)
         if self.y < 110:
             self.y += self.gravity
+        if self.is_boarding == 1:
+            self.y += 3
+
         if self.dx != 0: #움직일때
             if self.y ==110:
                 if self.dir == 1:
@@ -109,6 +116,10 @@ class Player:
 
     def remove(self):
         gfw.world.remove(self)
+
+    def boarding(self):
+
+        self.is_boarding = 1
 
 
     def handle_event(self, e):
