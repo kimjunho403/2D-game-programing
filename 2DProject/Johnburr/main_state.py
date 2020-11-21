@@ -2,6 +2,7 @@ from pico2d import *
 import gfw
 from player import Player
 from enemy import Enemy
+from flying_enemy import Flying_Enemy
 from timer import Timer
 import gobj
 from spaceship import Spaceship
@@ -10,7 +11,7 @@ import enemy_gen
 
 def enter():
     global player, spaceship, timer
-    gfw.world.init(['bg','spaceship','enemy_bullet','enemy','bullet','player','timer'])
+    gfw.world.init(['bg','spaceship','enemy_bullet','enemy','flying_enemy','bullet','player','timer'])
     player = Player()
     timer = Timer()
     bg.init(player)
@@ -21,6 +22,7 @@ def enter():
     gfw.world.add(gfw.layer.timer, timer)
 
     Enemy.load_all_images()
+    Flying_Enemy.load_all_images()
 
 def check_enemy(e):
     for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
