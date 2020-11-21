@@ -53,6 +53,9 @@ def check_enemy_bullet(eb):
             eb.remove()
             return
 
+
+
+
 def update():
     gfw.world.update()
     enemy_gen.update()
@@ -62,6 +65,8 @@ def update():
         check_enemy_bullet(eb)
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
+    for fe in gfw.world.objects_at(gfw.layer.flying_enemy):
+        check_enemy(fe)
 
 
 def draw():

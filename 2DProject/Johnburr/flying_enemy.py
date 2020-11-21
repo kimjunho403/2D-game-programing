@@ -6,7 +6,7 @@ from enemy_bullet import *
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 
 class Flying_Enemy:
-    POSITIONS = [( 1680// 2,600),( 0,580),( 1680,600)]
+    POSITIONS = [( 1200,700),( 840,600),( 500,800)]
     ACTIONS = ['Attack','Dead','Idle','Walk']
     images = {}
     FPS = 12
