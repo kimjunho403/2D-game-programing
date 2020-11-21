@@ -18,7 +18,7 @@ class Player:
         self.action = 0
         self.dir = 0
         self.speed =100
-        self.gravity = 3.0
+        self.gravity = 4.0
         self.time =0
         self.life =30
         self.jp_time =0
