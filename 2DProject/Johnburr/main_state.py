@@ -13,8 +13,8 @@ def enter():
     gfw.world.init(['bg','spaceship','enemy_bullet','enemy','bullet','player','timer'])
     player = Player()
     bg.init(player)
-    spaceship = Spaceship()
     timer = Timer()
+    spaceship = Spaceship()
     gfw.world.add(gfw.layer.bg,bg)
     gfw.world.add(gfw.layer.spaceship, spaceship)
     gfw.world.add(gfw.layer.player, player)
@@ -32,6 +32,9 @@ def check_enemy(e):
                 e.do_dead()
             b.remove()
             return
+
+
+
 
 def check_enemy_bullet(eb):
         if gobj.collides_box(eb, player):

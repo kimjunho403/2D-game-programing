@@ -107,9 +107,8 @@ class Player:
         if self.jp_power == 0:
             self.y -= 7
 
-
-
-
+    def remove(self):
+        gfw.world.remove(self)
 
 
     def handle_event(self, e):
