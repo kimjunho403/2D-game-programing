@@ -33,7 +33,10 @@ def check_enemy(e):
             b.remove()
             return
 
-
+def check_spaceship():
+        if gobj.collides_box(spaceship, player):
+            print('ok')
+            return
 
 
 def check_enemy_bullet(eb):
@@ -51,6 +54,7 @@ def check_enemy_bullet(eb):
 def update():
     gfw.world.update()
     enemy_gen.update()
+    check_spaceship()
 
     for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
         check_enemy_bullet(eb)

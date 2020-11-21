@@ -13,6 +13,7 @@ class Spaceship:
         self.time = 0
         self.end_time = 0
         self.n =0
+        self.pos =self.x, self.y
         char = '/spaceship/%d.png'
 
 
