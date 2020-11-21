@@ -28,6 +28,7 @@ class Enemy:
         self.speed = 200
         self.fidx = 0
         self.time = 0
+        self.dead_time = 0
         self.shot_time =0.5
         layer = list(gfw.world.objects_at(gfw.layer.player))
         self.player = layer[0]
@@ -107,7 +108,6 @@ class Enemy:
         self.time += gfw.delta_time
         self.fidx = round(self.time * Enemy.FPS)
         if self.fidx >= len(self.images['Attack']):
-            print('%d ' % (self.shot_time))
             self.shot_time += gfw.delta_time
             if self.shot_time > 0.6:
                 self.shot()
@@ -124,11 +124,11 @@ class Enemy:
     def do_dead(self):
         if self.action != 'Dead':
             return BehaviorTree.FAIL
-        self.time += gfw.delta_time
-        self.fidx = round(self.time * Enemy.FPS)
+
+        self.dead_time += gfw.delta_time
+        self.fidx = round(self.dead_time * Enemy.FPS)
         if self.fidx >= len(self.images['Dead']):
             self.remove()
-
         return BehaviorTree.SUCCESS
 
     @staticmethod
@@ -165,7 +165,6 @@ class Enemy:
 
     def update(self):
         self.bt.run()
-
 
 
     def update_position(self):

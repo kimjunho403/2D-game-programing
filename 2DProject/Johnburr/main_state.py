@@ -23,13 +23,13 @@ def enter():
     Enemy.load_all_images()
 
 def check_enemy(e):
-
     for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
-            # print('Collision', e, b)
             dead = e.decrease_life(b.power)
             if dead:
-                e.remove()
+                print('%d ' % (e.life))
+                e.action = 'Dead'
+                e.do_dead()
             b.remove()
             return
 
@@ -37,12 +37,8 @@ def update():
     gfw.world.update()
     enemy_gen.update()
 
-    global enemy_time
-    enemy_time -= gfw.delta_time
-    if enemy_time <= 0:
-        for e in gfw.world.objects_at(gfw.layer.enemy):
-            check_enemy(e)
-        enemy_time = 5
+    for e in gfw.world.objects_at(gfw.layer.enemy):
+        check_enemy(e)
 
 
 def draw():
