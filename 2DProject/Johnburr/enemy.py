@@ -10,7 +10,7 @@ class Enemy:
     ACTIONS = ['Attack','Dead','Idle','Walk']
     images = {}
     FPS = 12
-    CHASE_DISTANCE_SQ = 500 ** 2
+    CHASE_DISTANCE_SQ = 600 ** 2
     IDLE_INTERVAL = 2.0
     def __init__(self):
         if len(Enemy.images) == 0:
@@ -82,15 +82,6 @@ class Enemy:
 
             return BehaviorTree.FAIL
 
-    def move_to_player(self):
-        self.set_target(self.player.pos)
-        self.update_position()
-
-        collides = gobj.collides_box(self, self.player)
-        if collides:
-            self.action = 'Dead'
-            self.time = 0
-        return BehaviorTree.SUCCESS
 
     def follow_patrol_positions(self):
         if self.patrol_order < 0:
@@ -98,6 +89,7 @@ class Enemy:
         done = self.update_position()
         if done:
             self.set_patrol_target()
+
 
     def do_idle(self):
         if self.action != 'Idle':
@@ -173,6 +165,8 @@ class Enemy:
 
     def update(self):
         self.bt.run()
+
+
 
     def update_position(self):
         self.time += gfw.delta_time

@@ -1,15 +1,17 @@
 from pico2d import *
 import gfw
+import gobj
 RES_DIR = './res'
 
 class Bullet:
     SIZE = 10
     def __init__(self, x, y, dir,speed):
-        self.x, self.y = x, y
+        self.pos = x, y
         self.dx = speed
         self.dir =dir
         self.image = load_image(RES_DIR + '/bullet.png')
         self.power = 10
+        self.x, self.y = self.pos
 
     def draw(self):
         self.image.draw(self.x, self.y)

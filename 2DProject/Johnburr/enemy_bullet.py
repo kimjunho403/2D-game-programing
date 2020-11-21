@@ -40,8 +40,6 @@ class Enemy_Bullet:
         self.x += dx * self.speed * gfw.delta_time
         self.y += dy * self.speed * gfw.delta_time
 
-
-
     def set_target(self):
         dx, dy = self.tx - self.x, self.ty - self.y
         distance = math.sqrt(dx**2 + dy**2)
@@ -49,13 +47,11 @@ class Enemy_Bullet:
             return
         self.delta = dx / distance, dy / distance
 
-
-
-
-
     def move_to_player(self):
         self.set_target()
         self.update_position()
+
+
 
     def remove(self):
         gfw.world.remove(self)

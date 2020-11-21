@@ -9,7 +9,7 @@ class Spaceship:
         self.y = 200
 
     def draw(self):
-        self.image.draw(self.x, self.y, 180, 252)
+        self.image.draw(self.x, self.y)
 
     def update(self):
         pass
@@ -17,4 +17,4 @@ class Spaceship:
     def get_bb(self):
         hw = self.image.w // 2
         hh = self.image.h // 2
-        return self.x - hw, self.y - hh, self.x + hw, self.y + hh
+        return self.x - hw, self.y - hh, self.x + hw, self.y + hh-60

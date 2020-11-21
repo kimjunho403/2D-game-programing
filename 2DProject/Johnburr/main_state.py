@@ -5,6 +5,7 @@ from enemy import Enemy
 import gobj
 from spaceship import Spaceship
 import bg
+import enemy_gen
 
 def enter():
     global player
@@ -21,16 +22,26 @@ def enter():
 
     Enemy.load_all_images()
 
+def check_enemy(e):
 
+    for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
+        if gobj.collides_box(b, e):
+            # print('Collision', e, b)
+            dead = e.decrease_life(b.power)
+            if dead:
+                e.remove()
+            b.remove()
+            return
 
 def update():
     gfw.world.update()
-
+    enemy_gen.update()
 
     global enemy_time
     enemy_time -= gfw.delta_time
     if enemy_time <= 0:
-        gfw.world.add(gfw.layer.enemy, Enemy())
+        for e in gfw.world.objects_at(gfw.layer.enemy):
+            check_enemy(e)
         enemy_time = 5
 
 

@@ -17,6 +17,7 @@ class Player:
         self.speed =100
         self.gravity = 3.0
         self.time =0
+
         self.sit =0
     def fire(self):
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
