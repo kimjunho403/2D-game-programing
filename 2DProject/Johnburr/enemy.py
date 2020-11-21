@@ -2,6 +2,7 @@ import random
 from pico2d import *
 import gfw
 import gobj
+from enemy_bullet import *
 from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 
 class Enemy:
@@ -15,10 +16,10 @@ class Enemy:
         if len(Enemy.images) == 0:
             Enemy.load_all_images()
 
-
         self.pos = (random.choice([-10, get_canvas_width()+10]), 140)
         self.delta = 0.1, 0.1
         self.life = 100
+        self.dir = 0
         self.power = 1
         #self.find_nearest_pos()
         char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
@@ -27,6 +28,7 @@ class Enemy:
         self.speed = 200
         self.fidx = 0
         self.time = 0
+        self.shot_time =0.5
         layer = list(gfw.world.objects_at(gfw.layer.player))
         self.player = layer[0]
         self.patrol_order = -1
@@ -112,9 +114,19 @@ class Enemy:
             return BehaviorTree.FAIL
         self.time += gfw.delta_time
         self.fidx = round(self.time * Enemy.FPS)
+        if self.fidx >= len(self.images['Attack']):
+            print('%d ' % (self.shot_time))
+            self.shot_time += gfw.delta_time
+            if self.shot_time > 0.6:
+                self.shot()
+                self.shot_time = 0
 
 
         return BehaviorTree.SUCCESS
+
+    def shot(self):
+        enemy_bullet = Enemy_Bullet(*self.pos, self.dir, 700)
+        gfw.world.add(gfw.layer.enemy_bullet, enemy_bullet)
 
 
     def do_dead(self):

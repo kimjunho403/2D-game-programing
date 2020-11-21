@@ -3,15 +3,15 @@ import gfw
 from player import Player
 from enemy import Enemy
 import gobj
-import spaceship
+from spaceship import Spaceship
 import bg
 
 def enter():
     global player
-    gfw.world.init(['bg','spaceship','enemy','bullet','player'])
+    gfw.world.init(['bg','spaceship','enemy_bullet','enemy','bullet','player'])
     player = Player()
     bg.init(player)
-    spaceship.init()
+    spaceship = Spaceship()
     gfw.world.add(gfw.layer.bg,bg)
     gfw.world.add(gfw.layer.spaceship, spaceship)
     gfw.world.add(gfw.layer.player, player)

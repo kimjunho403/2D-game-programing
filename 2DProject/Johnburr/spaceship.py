@@ -1,16 +1,20 @@
 from pico2d import *
 import gfw
 RES_DIR = './res'
-def init():
-    global spaceship
-    spaceship = gfw.image.load(RES_DIR +'/spaceship.png')
-def draw():
-    x = get_canvas_width() //2
-    spaceship.draw(x, 200,180,252)
-def update():
-    pass
+class Spaceship:
+    def __init__(self):
+        self.image = load_image(RES_DIR + '/spaceship.png')
+        self.life = 1000
+        self.x = get_canvas_width() // 2
+        self.y = 200
 
-#def get_bb(self):
-#    hw = 50
-#    hh = 50
-#    return 180- hw, 252 - hh,180 + hw, 252+ hh
+    def draw(self):
+        self.image.draw(self.x, self.y, 180, 252)
+
+    def update(self):
+        pass
+
+    def get_bb(self):
+        hw = self.image.w // 2
+        hh = self.image.h // 2
+        return self.x - hw, self.y - hh, self.x + hw, self.y + hh
