@@ -4,12 +4,15 @@ RES_DIR = './res'
 class Spaceship:
     def __init__(self):
         self.image = load_image(RES_DIR + '/spaceship.png')
-        self.life = 1000
+        self.hp_image = load_image(RES_DIR + '/space_ship_hp.png')
+        self.life = 300
         self.x = get_canvas_width() // 2
         self.y = 200
 
     def draw(self):
         self.image.draw(self.x, self.y)
+        for n in range(self.life//5):
+            self.hp_image.draw(self.x + 70, self.y+n*5-120)
 
     def update(self):
         pass
