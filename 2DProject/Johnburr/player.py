@@ -104,6 +104,10 @@ class Player:
         if self.jp_time_2 > 0.1:
             self.jp_power -= self.delta_jp
             self.jp_time_2 = 0
+        if self.jp_power == 0:
+            self.y -= 7
+
+
 
 
 
