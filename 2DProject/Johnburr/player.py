@@ -45,80 +45,80 @@ class Player:
                 self.image_jp_hp.draw(self.x + 75, self.y + n * 5)
 
 
-
-
     def update(self):
-        self.time += gfw.delta_time
-        self.jp_time += gfw.delta_time
-        self.jp_time_2 +=gfw.delta_time
-        self.x += self.dx * self.speed * gfw.delta_time
-        self.y += self.dy * self.speed * gfw.delta_time- self.gravity
-        self.hw, self.hh = 0, 110
-        self.x = clamp(self.hw, self.x, get_canvas_width() - self.hw)
-        self.y = clamp(self.hh, self.y, get_canvas_height() - 30)
-        if self.y < 110:
-            self.y += self.gravity
         if self.is_boarding == 1:
             self.y += 3
+        elif self.is_boarding == 0:
+            self.time += gfw.delta_time
+            self.jp_time += gfw.delta_time
+            self.jp_time_2 += gfw.delta_time
+            self.x += self.dx * self.speed * gfw.delta_time
+            self.y += self.dy * self.speed * gfw.delta_time - self.gravity
+            self.hw, self.hh = 0, 110
+            self.x = clamp(self.hw, self.x, get_canvas_width() - self.hw)
+            self.y = clamp(self.hh, self.y, get_canvas_height() - 30)
+            if self.y < 110:
+                self.y += self.gravity
 
-        if self.dx != 0: #움직일때
-            if self.y ==110:
-                if self.dir == 1:
-                    self.action = 1
-                    self.fidx = int(self.time * 10 + 0.5) % 8
-                elif self.dir == 0:
-                    self.action = 2
-                    self.fidx = int(self.time * 10 + 0.5) % 8
-            elif self.y != 110:
-                if self.dir == 0:
-                    self.fidx = 5
-                    self.action = 0
-                elif self.dir == 1:
-                    self.fidx = 4
-                    self.action = 0
-        elif self.dx == 0: #가만히 있을때
-            if self.y == 110:
-                if self.dir == 0:
-                    self.action = 0
-                    self.fidx = 1
-                    if self.sit == 1:
-                        self.fidx = 3
+            if self.dx != 0:  # 움직일때
+                if self.y == 110:
+                    if self.dir == 1:
+                        self.action = 1
+                        self.fidx = int(self.time * 10 + 0.5) % 8
+                    elif self.dir == 0:
+                        self.action = 2
+                        self.fidx = int(self.time * 10 + 0.5) % 8
+                elif self.y != 110:
+                    if self.dir == 0:
+                        self.fidx = 5
                         self.action = 0
-
-                elif self.dir == 1:
-                    self.action = 0
-                    self.fidx = 0
-                    if self.sit == 1:
-                        self.fidx = 2
+                    elif self.dir == 1:
+                        self.fidx = 4
                         self.action = 0
+            elif self.dx == 0:  # 가만히 있을때
+                if self.y == 110:
+                    if self.dir == 0:
+                        self.action = 0
+                        self.fidx = 1
+                        if self.sit == 1:
+                            self.fidx = 3
+                            self.action = 0
 
-            elif self.y !=110:
-                if self.dir == 0:
-                    self.fidx = 5
-                    self.action = 0
-                elif self.dir == 1:
-                    self.fidx = 4
-                    self.action = 0
-        self.pos = self.x,self.y
+                    elif self.dir == 1:
+                        self.action = 0
+                        self.fidx = 0
+                        if self.sit == 1:
+                            self.fidx = 2
+                            self.action = 0
 
-        if self.jp_power > 30:
-            self.jp_power = 30
-        if self.jp_power < 0:
-            self.jp_power = 0
-        if self.jp_time > 1 and self.delta_jp != 1:
-            self.jp_power += 2
-            self.jp_time = 0
-        if self.jp_time_2 > 0.1:
-            self.jp_power -= self.delta_jp
-            self.jp_time_2 = 0
-        if self.jp_power == 0:
-            self.y -= 7
+                elif self.y != 110:
+                    if self.dir == 0:
+                        self.fidx = 5
+                        self.action = 0
+                    elif self.dir == 1:
+                        self.fidx = 4
+                        self.action = 0
+            self.pos = self.x, self.y
+
+            if self.jp_power > 30:
+                self.jp_power = 30
+            if self.jp_power < 0:
+                self.jp_power = 0
+            if self.jp_time > 1 and self.delta_jp != 1:
+                self.jp_power += 2
+                self.jp_time = 0
+            if self.jp_time_2 > 0.1:
+                self.jp_power -= self.delta_jp
+                self.jp_time_2 = 0
+            if self.jp_power == 0:
+                self.y -= 7
+
+
 
     def remove(self):
         gfw.world.remove(self)
 
     def boarding(self):
-
         self.is_boarding = 1
 
 

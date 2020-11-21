@@ -27,7 +27,7 @@ class Spaceship:
     def update(self):
          self.time += gfw.delta_time
 
-         if self.time >=5 and self.is_boarding==1:
+         if self.time >= 500 and self.is_boarding == 1:
              self.end_time = 1
          if self.end_time == 1 and self.n !=7:
             self.n += 1
