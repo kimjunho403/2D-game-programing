@@ -21,10 +21,6 @@ class Enemy_Bullet:
         self.image.draw(self.x, self.y)
 
     def update(self):
-        #if self.dir == 1:
-        #        self.x += self.dx * gfw.delta_time
-        #elif self.dir == 0:
-        #        self.x -= self.dx * gfw.delta_time
         self.move_to_player()
 
         if self.x > get_canvas_width() + Enemy_Bullet.SIZE:
