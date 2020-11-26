@@ -16,12 +16,13 @@ class Enemy_Bullet:
         layer = list(gfw.world.objects_at(gfw.layer.player))
         self.player = layer[0]
         self.tx, self.ty = self.player.pos
+        self.set_target()
 
     def draw(self):
         self.image.draw(self.x, self.y)
 
     def update(self):
-        self.move_to_player()
+        self.shot_to_player()
 
         if self.x > get_canvas_width() + Enemy_Bullet.SIZE:
             self.remove()
@@ -43,8 +44,8 @@ class Enemy_Bullet:
             return
         self.delta = dx / distance, dy / distance
 
-    def move_to_player(self):
-        self.set_target()
+    def shot_to_player(self):
+
         self.update_position()
 
 

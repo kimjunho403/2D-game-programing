@@ -209,11 +209,6 @@ class Enemy:
 
 
     def build_behavior_tree(self):
-        #node_gnp = LeafNode("Get Next Position", self.set_patrol_target)
-        #node_mtt = LeafNode("Move to Target", self.update_position)
-        #patrol_node = SequenceNode("Patrol")
-        #patrol_node.add_children(node_gnp, node_mtt)
-        #self.bt = BehaviorTree(patrol_node)
         self.bt = BehaviorTree.build({
             "name": "PatrolChase",
             "class": SelectorNode,
@@ -229,7 +224,7 @@ class Enemy:
                     "function": self.do_dead,
                 },
                 {
-                    "name": "Chase",
+                    "name": "attack",
                     "class": SequenceNode,
                     "children": [
                         {
@@ -239,14 +234,14 @@ class Enemy:
                         },
                         {
                             "class": LeafNode,
-                            "name": "Move to Player",
+                            "name": "attack to Player",
                             "function": self.do_attack,
                         },
                     ],
                 },
                 {
                     "class": LeafNode,
-                    "name": "Follow Patrol positions",
+                    "name": "Patrol positions",
                     "function": self.follow_patrol_positions,
                 },
             ],
