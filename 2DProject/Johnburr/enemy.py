@@ -12,7 +12,6 @@ class Enemy:
     FPS = 12
     CHASE_DISTANCE_SQ = 600 ** 2
     IDLE_INTERVAL = 2.0
-    char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
     def __init__(self):
         if len(Enemy.images) == 0:
             Enemy.load_all_images()
@@ -22,19 +21,38 @@ class Enemy:
         self.life = 100
         self.dir = 0
         self.power = 1
-        #self.find_nearest_pos()
-        char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
-        self.images = Enemy.load_images(char)
+        self.char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
+        self.images = Enemy.load_images(self.char)
         self.action = 'Idle'
         self.speed = 200
         self.fidx = 0
         self.time = 0
+        self.shot_speed = 0.6
         self.dead_time = 0
         self.shot_time =0.5
         layer = list(gfw.world.objects_at(gfw.layer.player))
         self.player = layer[0]
         self.patrol_order = -1
         self.build_behavior_tree()
+        self.init_enemy()
+
+    def init_enemy(self):
+        if self.char == 'green':
+            self.shot_time = 0.5
+            self.speed = 200
+            self.power = 1
+            self.life = 100
+            self.shot_speed = 0.6
+        elif self.char == 'gray':
+            self.shot_speed = 0.3
+        elif self.char == 'armor':
+            self.life = 200
+        elif self.char == 'red':
+            self.speed = 500
+        elif self.char == 'blue':
+            self.power = 2
+            
+
 
     def find_nearest_pos(self):
         x, y = self.pos
@@ -110,7 +128,7 @@ class Enemy:
         self.fidx = round(self.time * Enemy.FPS)
         if self.fidx >= len(self.images['Attack']):
             self.shot_time += gfw.delta_time
-            if self.shot_time > 0.6:
+            if self.shot_time > self.shot_speed:
                 self.shot()
                 self.shot_time = 0
 

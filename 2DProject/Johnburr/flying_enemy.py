@@ -18,7 +18,7 @@ class Flying_Enemy:
 
         self.pos = (random.choice([-10, get_canvas_width()+10]), 600)
         self.delta = 0.1, 0.1
-        self.life = 100
+        self.life = 80
         self.dir = 0
         self.power = 1
         #self.find_nearest_pos()

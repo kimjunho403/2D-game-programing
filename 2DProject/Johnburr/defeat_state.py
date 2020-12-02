@@ -78,8 +78,8 @@ def handle_mouse(e):
 
 
 def exit():
-    global image, bg_music
-    del image
+    global bg_music
+
     del bg_music
 
 

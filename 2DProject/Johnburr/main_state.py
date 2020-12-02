@@ -93,7 +93,6 @@ def update():
 
     if timer.time == 0:
         check_spaceship()
-        print("%d", spaceship.y)
     for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
         check_enemy_bullet(eb)
     for e in gfw.world.objects_at(gfw.layer.enemy):

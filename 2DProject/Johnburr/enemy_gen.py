@@ -24,7 +24,7 @@ def generate_wave():
         gfw.world.add(gfw.layer.flying_enemy, fe)
 
     wave_index += 1
-    next_wave = random.uniform(5, 6)
+    next_wave = random.uniform(2, 6)
 
 LEVEL_ADJUST_PERCENTS = [ 10, 15, 15, 40, 15, 5 ] # -3 ~ 2
 def enemy_level():
@@ -33,10 +33,11 @@ def enemy_level():
     pl = level
     pp = percent
     for p in LEVEL_ADJUST_PERCENTS:
-        if percent < p: break
+        if percent < p:
+            break
         percent -= p
         level += 1
-    # print(pl, '->', level, ', ', pp, '->', percent)
+    #print(pl, '->', level, ', ', pp, '->', percent)
     if level < 1: level = 1
     if level > 20: level = 20
     return level
