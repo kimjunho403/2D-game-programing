@@ -10,14 +10,13 @@ num = 1
 num_time = 0
 
 def update():
-    global next_wave, num_time
+    global next_wave, num_time, num
     next_wave -= gfw.delta_time
     num_time += gfw.delta_time
+
     for n in range(0,5):
-        if num_time > 36*n:
+        if num_time > 20*n:
             num = n+1
-
-
 
 
     if next_wave < 0:
@@ -36,7 +35,7 @@ def generate_wave():
         gfw.world.add(gfw.layer.flying_enemy, fe)
 
     wave_index += 1
-    next_wave = random.uniform(2, 6)
+    next_wave = random.uniform(5, 6)
 
 LEVEL_ADJUST_PERCENTS = [ 10, 15, 15, 40, 15, 5 ] # -3 ~ 2
 

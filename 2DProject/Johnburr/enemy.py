@@ -16,16 +16,15 @@ class Enemy:
         if len(Enemy.images) == 0:
             Enemy.load_all_images()
 
-        self.pos = (random.choice([-20, get_canvas_width()+20]), 140)
+        self.pos = (random.choice([-30, get_canvas_width()+30]), 140)
         self.delta = 0.1, 0.1
         self.life = 100
         self.dir = 0
         self.power = 1
-        self.choice_num = random.choice([num])
-        self.char = 'green'
-        self.images = Enemy.load_images(self.char)
+        self.choice_num = random.randrange(1, num+1)
+        self.char = 'red'
         self.action = 'Idle'
-        self.speed = 200
+        self.speed = 100
         self.fidx = 0
         self.time = 0
         self.shot_speed = 0.6
@@ -38,18 +37,20 @@ class Enemy:
         self.init_enemy()
 
     def init_enemy(self):
+
         if self.choice_num == 1:
             self.char = 'green'
         elif self.choice_num == 2:
             self.char = 'gray'
         elif self.choice_num == 3:
             self.char = 'red'
-        elif self.choice.num ==4:
+        elif self.choice_num == 4:
             self.char = 'blue'
-        elif self.choice.num == 5:
+        elif self.choice_num == 5:
             self.char = 'armor'
-
-
+        print(self.choice_num)
+        print(self.char)
+        self.images = Enemy.load_images(self.char)
 
         if self.char == 'green':
             self.shot_time = 0.5
@@ -60,7 +61,7 @@ class Enemy:
         elif self.char == 'gray':
             self.shot_speed = 0.3
         elif self.char == 'armor':
-            self.life = 200
+            self.life = 300
         elif self.char == 'red':
             self.speed = 500
         elif self.char == 'blue':

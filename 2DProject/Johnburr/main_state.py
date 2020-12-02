@@ -62,7 +62,7 @@ def check_spaceship():
 
 
 def check_enemy_bullet(eb):
-
+        spaceship_dead = False
         if gobj.collides_box(eb, player):
             player_dead = player.decrease_life(eb.power)
             flip_wav.play()
@@ -72,15 +72,15 @@ def check_enemy_bullet(eb):
             return
         if gobj.collides_box(eb, spaceship):
             spaceship_dead = spaceship.decrease_life(eb.power)
-            if spaceship_dead:
-                global count
-                if count == 0:
-                    spaceship_wav.play()
-                count += gfw.delta_time
-                spaceship.remove()
-                if count > 2:
-                    gfw.push(defeat_state)
             eb.remove()
+        if spaceship_dead:
+            global count
+            if count == 0:
+                spaceship_wav.play()
+            count += gfw.delta_time
+            spaceship.remove()
+            if count > 0.5:
+                gfw.push(defeat_state)
             return
 
 
@@ -117,7 +117,10 @@ def handle_event(e):
     player.handle_event(e)
 
 def pause():
-    pass
+    enemy_gen.num = 1
+    enemy_gen.num_time = 0
+    enemy_gen.next_wave = 0
+    Enemy.choice_num = 1
 
 def resume():
     pass
@@ -126,6 +129,7 @@ def exit():
     global bg_music
     bg_music.stop()
     del bg_music
+
 
 if  __name__ == '__main__':
     gfw.run_main()

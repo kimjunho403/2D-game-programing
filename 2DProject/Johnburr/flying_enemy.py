@@ -16,7 +16,7 @@ class Flying_Enemy:
         if len(Flying_Enemy.images) == 0:
             Flying_Enemy.load_all_images()
 
-        self.pos = (random.choice([-10, get_canvas_width()+10]), 600)
+        self.pos = (random.choice([-30, get_canvas_width()+30]), 600)
         self.delta = 0.1, 0.1
         self.life = 80
         self.dir = 0
@@ -109,7 +109,7 @@ class Flying_Enemy:
         self.fidx = round(self.time * Flying_Enemy.FPS)
         if self.fidx >= len(self.images['Attack']):
             self.shot_time += gfw.delta_time
-            if self.shot_time > 0.2:
+            if self.shot_time > 0.5:
                 self.shot()
                 self.shot_time = 0
 

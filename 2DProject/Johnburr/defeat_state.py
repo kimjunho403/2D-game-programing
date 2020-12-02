@@ -79,7 +79,7 @@ def handle_mouse(e):
 
 def exit():
     global bg_music
-
+    bg_music.stop()
     del bg_music
 
 

@@ -10,7 +10,7 @@ class Bullet:
         self.dx = speed
         self.dir =dir
         self.image = load_image(RES_DIR + '/bullet.png')
-        self.power = 30
+        self.power = 40
         self.x, self.y = self.pos
 
     def draw(self):
@@ -23,6 +23,8 @@ class Bullet:
             self.x -= self.dx * gfw.delta_time
 
         if self.x > get_canvas_width() + Bullet.SIZE:
+            self.remove()
+        if self.x < 0+ Bullet.SIZE:
             self.remove()
 
     def remove(self):

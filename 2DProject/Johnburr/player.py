@@ -120,7 +120,7 @@ class Player:
             if self.jp_power < 0:
                 self.jp_power = 0
             if self.jp_time > 1 and self.delta_jp != 1:
-                self.jp_power += 2
+                self.jp_power += 3
                 self.jp_time = 0
             if self.jp_time_2 > 0.12:
                 self.jp_power -= self.delta_jp
