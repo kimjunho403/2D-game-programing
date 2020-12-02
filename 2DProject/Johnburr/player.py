@@ -20,6 +20,7 @@ class Player:
         self.speed =100
         self.gravity = 4.0
         self.time =0
+        self.hit_time =0
         self.life =30
         self.jp_time =0
         self.jp_power = 30
@@ -47,6 +48,13 @@ class Player:
 
 
     def update(self):
+        self.hit_time += gfw.delta_time
+        if self.hit == False and self.hit_time > 1 and self.life < 30:
+            self.life += 1
+            self.hit_time = 0
+        if self.hit == True and self.hit_time > 3:
+            self.hit = False
+            self.hit_time = 0
 
 
         if self.is_boarding == 1:
@@ -166,7 +174,7 @@ class Player:
         return x - hw, y - hh, x + hw, y + hh
 
     def decrease_life(self, amount):
-        
+        self.hit = True
         self.life -= amount
         return self.life <= 0
 

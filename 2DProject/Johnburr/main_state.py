@@ -8,6 +8,9 @@ import gobj
 from spaceship import Spaceship
 import bg
 import enemy_gen
+import victory_state
+import defeat_state
+
 def enter():
     global player, spaceship, timer
     gfw.world.init(['bg','spaceship','enemy_bullet','enemy','flying_enemy','bullet','player','timer'])
@@ -46,6 +49,9 @@ def check_spaceship():
         if gobj.collides_box(spaceship, player):
             player.boarding()
             spaceship.is_boarding =1
+            if spaceship.y > 800:
+                print("도달")
+                gfw.push(victory_state)
 
 
 def check_enemy_bullet(eb):
@@ -91,6 +97,12 @@ def handle_event(e):
             gfw.pop()
 
     player.handle_event(e)
+
+def pause():
+    pass
+
+def resume():
+    pass
 
 def exit():
     global bg_music

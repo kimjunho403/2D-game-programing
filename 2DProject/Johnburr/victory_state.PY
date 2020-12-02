@@ -4,7 +4,7 @@ import main_state
 
 RES_DIR = './res'
 def enter():
-    global image, spaceship_image,engine_image, time, cw , ch,  scroll, speed,victory_image,quit_image,again_image
+    global image, spaceship_image,engine_image, time, cw , ch,  scroll, speed,victory_image,quit_image,again_image, fidx
     image = load_image(RES_DIR + '/victory_state.png')
     spaceship_image = load_image(RES_DIR + '/spaceship/7.png')
     engine_image = load_image(RES_DIR + '/engine.png')
@@ -14,6 +14,7 @@ def enter():
     time = 0
     cw , ch = get_canvas_width(), get_canvas_height()
     scroll = 0
+    fidx = 0
     speed = 500
 
     global bg_music
@@ -31,6 +32,7 @@ def update():
 
 
 def draw():
+
     sx = fidx * 53
     #image.draw(get_canvas_width() // 2,get_canvas_height() // 2,get_canvas_width() ,get_canvas_height())
 
@@ -75,8 +77,9 @@ def handle_event(e):
 
 
 def exit():
-    global image
+    global image, bg_music
     del image
+    del bg_music
 
 
 def pause():

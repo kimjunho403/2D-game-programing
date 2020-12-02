@@ -6,7 +6,7 @@ class Timer:
         global char
         self.x = get_canvas_width() // 2
         self.y = 800
-        self.time = 180
+        self.time = 1
         self.s_time = 0
         self.minute = self.time//60
         self.second = self.time %60
