@@ -60,8 +60,6 @@ def handle_event(e):
         gfw.quit()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
         gfw.quit()
-    elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_SPACE):
-        gfw.push(main_state)
 
     if handle_mouse(e):
         return
@@ -71,7 +69,6 @@ def handle_mouse(e):
     if e.type == SDL_MOUSEMOTION:
         mx = e.x
         my = get_canvas_height() - 1 - e.y
-        print("%d"     "%d", mx, my)
 
     if e.type == SDL_MOUSEBUTTONDOWN:
         if mx > 20 and mx < 210 and my>30 and my<230:
@@ -84,7 +81,6 @@ def exit():
     global image, bg_music
     del image
     del bg_music
-    bg_music.stop()
 
 
 def pause():

@@ -13,8 +13,9 @@ def enter():
 
 
 
-    global bg_music
+    global bg_music, flip_wav
     bg_music = load_music('res/title_state_sound.mp3')
+    flip_wav = load_wav('res/botton.wav')
     bg_music.set_volume(60)
     bg_music.repeat_play()
 
@@ -54,12 +55,16 @@ def handle_mouse(e):
     if e.type == SDL_MOUSEMOTION:
         mx = e.x
         my = get_canvas_height() - 1 - e.y
-        print("%d"     "%d", mx, my)
         if mx > get_canvas_width()//2-193 and mx < get_canvas_width()//2+193 and my>250 and my<350:
+            if press_1 == False:
+                flip_wav.play()
             press_1 = True
+
         else:
             press_1 = False
         if mx > get_canvas_width()//2-193 and mx < get_canvas_width()//2+193 and my>150 and my<250:
+            if press_2 == False:
+                flip_wav.play()
             press_2 = True
         else:
             press_2 = False

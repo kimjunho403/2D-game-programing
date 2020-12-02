@@ -12,7 +12,7 @@ import victory_state
 import defeat_state
 
 def enter():
-    global player, spaceship, timer
+    global player, spaceship, timer, count
     gfw.world.init(['bg','spaceship','enemy_bullet','enemy','flying_enemy','bullet','player','timer'])
     player = Player()
     timer = Timer()
@@ -22,24 +22,32 @@ def enter():
     gfw.world.add(gfw.layer.spaceship, spaceship)
     gfw.world.add(gfw.layer.player, player)
     gfw.world.add(gfw.layer.timer, timer)
+    count = 0
 
     Enemy.load_all_images()
     Flying_Enemy.load_all_images()
 
-    global bg_music
+    global bg_music, flip_wav, enemy_die_wav, spaceship_wav
     bg_music = load_music('res/main_state_sound.mp3')
     bg_music.set_volume(60)
     bg_music.repeat_play()
+    flip_wav = load_wav('res/beshot.wav')
+    enemy_die_wav = load_wav('res/enemy_die.wav')
+    spaceship_wav = load_wav('res/spaceship_die.wav')
+    flip_wav.set_volume(50)
+    enemy_die_wav.set_volume(200)
+
 
 
 
 
 def check_enemy(e):
+    dead = False
     for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
-        if gobj.collides_box(b, e):
+        if gobj.collides_box(b, e) and not dead:
             dead = e.decrease_life(b.power)
             if dead:
-
+                enemy_die_wav.play()
                 e.action = 'Dead'
                 e.do_dead()
             b.remove()
@@ -50,13 +58,14 @@ def check_spaceship():
             player.boarding()
             spaceship.is_boarding = 1
         if spaceship.y > 900:
-            print("도달")
             gfw.push(victory_state)
 
 
 def check_enemy_bullet(eb):
+
         if gobj.collides_box(eb, player):
             player_dead = player.decrease_life(eb.power)
+            flip_wav.play()
             if player_dead:
                 gfw.push(defeat_state)
             eb.remove()
@@ -64,8 +73,13 @@ def check_enemy_bullet(eb):
         if gobj.collides_box(eb, spaceship):
             spaceship_dead = spaceship.decrease_life(eb.power)
             if spaceship_dead:
+                global count
+                if count == 0:
+                    spaceship_wav.play()
+                count += gfw.delta_time
                 spaceship.remove()
-                gfw.push(defeat_state)
+                if count > 2:
+                    gfw.push(defeat_state)
             eb.remove()
             return
 

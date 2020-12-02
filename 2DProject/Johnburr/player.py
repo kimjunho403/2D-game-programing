@@ -29,8 +29,12 @@ class Player:
         self.is_boarding = 0
         self.sit =0
         self.hit = False
+        self.flip_wav = load_wav(gobj.res('shot.wav'))
+        self.flip_wav.set_volume(50)
 
     def fire(self):
+        self.flip_wav.play()
+
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
         if self.sit == 1:
             bullet = Bullet(self.x, self.y-8, self.dir, 700)
