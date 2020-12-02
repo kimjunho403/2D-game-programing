@@ -1,7 +1,7 @@
 import gfw
 from pico2d import *
 import main_state
-
+import title_state
 RES_DIR = './res'
 def enter():
     global image, spaceship_image,engine_image, time, cw , ch,  scroll, speed,victory_image,quit_image,again_image, fidx
@@ -74,7 +74,22 @@ def handle_event(e):
         gfw.quit()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_SPACE):
         gfw.push(main_state)
+    if handle_mouse(e):
+        return
 
+
+def handle_mouse(e):
+    global mx , my
+    if e.type == SDL_MOUSEMOTION:
+        mx = e.x
+        my = get_canvas_height() - 1 - e.y
+        print("%d"     "%d", mx, my)
+
+    if e.type == SDL_MOUSEBUTTONDOWN:
+        if mx > 60 and mx < 140 and my>50 and my<150:
+            gfw.push(title_state)
+        if mx > 1560 and mx < 1640 and my>40 and my<160:
+            gfw.push(main_state)
 
 def exit():
     global image, bg_music
