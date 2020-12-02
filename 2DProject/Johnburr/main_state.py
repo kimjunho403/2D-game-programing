@@ -48,21 +48,24 @@ def check_enemy(e):
 def check_spaceship():
         if gobj.collides_box(spaceship, player):
             player.boarding()
-            spaceship.is_boarding =1
-            if spaceship.y > 800:
-                print("도달")
-                gfw.push(victory_state)
+            spaceship.is_boarding = 1
+        if spaceship.y > 900:
+            print("도달")
+            gfw.push(victory_state)
 
 
 def check_enemy_bullet(eb):
         if gobj.collides_box(eb, player):
-            player.decrease_life(eb.power)
+            player_dead = player.decrease_life(eb.power)
+            if player_dead:
+                gfw.push(defeat_state)
             eb.remove()
             return
         if gobj.collides_box(eb, spaceship):
             spaceship_dead = spaceship.decrease_life(eb.power)
             if spaceship_dead:
                 spaceship.remove()
+                gfw.push(defeat_state)
             eb.remove()
             return
 
@@ -73,8 +76,10 @@ def update():
     gfw.world.update()
     enemy_gen.update()
 
+
     if timer.time == 0:
         check_spaceship()
+        print("%d", spaceship.y)
     for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
         check_enemy_bullet(eb)
     for e in gfw.world.objects_at(gfw.layer.enemy):
@@ -106,6 +111,7 @@ def resume():
 
 def exit():
     global bg_music
+    bg_music.stop()
     del bg_music
 
 if  __name__ == '__main__':
