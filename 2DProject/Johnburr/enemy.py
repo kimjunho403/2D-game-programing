@@ -12,16 +12,17 @@ class Enemy:
     FPS = 12
     CHASE_DISTANCE_SQ = 600 ** 2
     IDLE_INTERVAL = 2.0
-    def __init__(self):
+    def __init__(self, num):
         if len(Enemy.images) == 0:
             Enemy.load_all_images()
 
-        self.pos = (random.choice([-10, get_canvas_width()+10]), 140)
+        self.pos = (random.choice([-20, get_canvas_width()+20]), 140)
         self.delta = 0.1, 0.1
         self.life = 100
         self.dir = 0
         self.power = 1
-        self.char = random.choice(['green', 'gray', 'red', 'blue', 'armor'])
+        self.choice_num = random.choice([num])
+        self.char = 'green'
         self.images = Enemy.load_images(self.char)
         self.action = 'Idle'
         self.speed = 200
@@ -37,6 +38,19 @@ class Enemy:
         self.init_enemy()
 
     def init_enemy(self):
+        if self.choice_num == 1:
+            self.char = 'green'
+        elif self.choice_num == 2:
+            self.char = 'gray'
+        elif self.choice_num == 3:
+            self.char = 'red'
+        elif self.choice.num ==4:
+            self.char = 'blue'
+        elif self.choice.num == 5:
+            self.char = 'armor'
+
+
+
         if self.char == 'green':
             self.shot_time = 0.5
             self.speed = 200
@@ -51,7 +65,7 @@ class Enemy:
             self.speed = 500
         elif self.char == 'blue':
             self.power = 2
-            
+
 
 
     def find_nearest_pos(self):
