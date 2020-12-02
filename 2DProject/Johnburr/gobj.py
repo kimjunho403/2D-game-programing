@@ -18,6 +18,8 @@ def point_add(point1, point2):
     x2, y2 = point2
     return x1 + x2, y1 + y2
 
+def mouse_xy(event):
+    return event.x, get_canvas_height() - event.y - 1
 
 def move_obj(obj):
     obj.pos = point_add(obj.pos, obj.delta)
