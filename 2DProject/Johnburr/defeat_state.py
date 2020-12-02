@@ -19,6 +19,11 @@ def enter():
     e4_image = load_image(RES_DIR + '/alienfiles/predator/Idle (1).png')
     e5_image = load_image(RES_DIR + '/alienfiles/red/Idle (1).png')
 
+    global bg_music
+    bg_music = load_music('res/defeat_state_sound.mp3')
+    bg_music.set_volume(60)
+    bg_music.repeat_play()
+
 
 def update():
     pass

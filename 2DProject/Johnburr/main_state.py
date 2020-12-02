@@ -8,7 +8,6 @@ import gobj
 from spaceship import Spaceship
 import bg
 import enemy_gen
-
 def enter():
     global player, spaceship, timer
     gfw.world.init(['bg','spaceship','enemy_bullet','enemy','flying_enemy','bullet','player','timer'])
@@ -23,6 +22,14 @@ def enter():
 
     Enemy.load_all_images()
     Flying_Enemy.load_all_images()
+
+    global bg_music
+    bg_music = load_music('res/main_state_sound.mp3')
+    bg_music.set_volume(60)
+    bg_music.repeat_play()
+
+
+
 
 def check_enemy(e):
     for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
@@ -59,6 +66,7 @@ def check_enemy_bullet(eb):
 def update():
     gfw.world.update()
     enemy_gen.update()
+
     if timer.time == 0:
         check_spaceship()
     for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
@@ -85,7 +93,8 @@ def handle_event(e):
     player.handle_event(e)
 
 def exit():
-    pass
+    global bg_music
+    del bg_music
 
 if  __name__ == '__main__':
     gfw.run_main()

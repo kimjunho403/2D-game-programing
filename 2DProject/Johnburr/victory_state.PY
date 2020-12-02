@@ -16,6 +16,11 @@ def enter():
     scroll = 0
     speed = 500
 
+    global bg_music
+    bg_music = load_music('res/victory_state_sound.mp3')
+    bg_music.set_volume(60)
+    bg_music.repeat_play()
+
 
 def update():
     global fidx, time, scroll

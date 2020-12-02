@@ -27,6 +27,7 @@ class Player:
         self.delta_jp = 0
         self.is_boarding = 0
         self.sit =0
+        self.hit = False
 
     def fire(self):
         bullet = Bullet(self.x, self.y + Player.SPARK_OFFSET, self.dir, 700)
@@ -46,6 +47,8 @@ class Player:
 
 
     def update(self):
+
+
         if self.is_boarding == 1:
             self.y += 3
         elif self.is_boarding == 0:
@@ -107,11 +110,13 @@ class Player:
             if self.jp_time > 1 and self.delta_jp != 1:
                 self.jp_power += 2
                 self.jp_time = 0
-            if self.jp_time_2 > 0.1:
+            if self.jp_time_2 > 0.12:
                 self.jp_power -= self.delta_jp
                 self.jp_time_2 = 0
             if self.jp_power == 0:
                 self.y -= 9
+
+
 
 
 
@@ -161,6 +166,7 @@ class Player:
         return x - hw, y - hh, x + hw, y + hh
 
     def decrease_life(self, amount):
+        
         self.life -= amount
         return self.life <= 0
 

@@ -33,7 +33,7 @@ class Spaceship:
          self.time += gfw.delta_time
 
 
-         if self.time >= 10 and self.is_boarding == 1:
+         if self.time >= 180 and self.is_boarding == 1:
              self.end_time = 1
              self.fidx = int(self.time * 30 + 0.5) % 4
          if self.end_time == 1 and self.n !=7:

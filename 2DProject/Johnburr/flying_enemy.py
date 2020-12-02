@@ -109,7 +109,7 @@ class Flying_Enemy:
         self.fidx = round(self.time * Flying_Enemy.FPS)
         if self.fidx >= len(self.images['Attack']):
             self.shot_time += gfw.delta_time
-            if self.shot_time > 0.1:
+            if self.shot_time > 0.2:
                 self.shot()
                 self.shot_time = 0
 
