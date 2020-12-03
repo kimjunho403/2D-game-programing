@@ -1,7 +1,7 @@
 import gfw
 from pico2d import *
 import main_state
-
+import enemy_gen
 RES_DIR = './res'
 def enter():
     global image, exit_image, exit_2_image, start_image, start_2_image
@@ -14,8 +14,8 @@ def enter():
 
 
     global bg_music, flip_wav
-    bg_music = load_music('res/title_state_sound.mp3')
-    flip_wav = load_wav('res/botton.wav')
+    bg_music = load_music('./res/title_state_sound.mp3')
+    flip_wav = load_wav('./res/botton.wav')
     bg_music.set_volume(60)
     bg_music.repeat_play()
 
@@ -70,6 +70,7 @@ def handle_mouse(e):
             press_2 = False
     if e.type == SDL_MOUSEBUTTONDOWN:
         if press_1 == True:
+            enemy_gen.difficulty = 0
             gfw.push(main_state)
         if press_2 == True:
             gfw.quit()

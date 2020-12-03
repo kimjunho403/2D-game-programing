@@ -12,11 +12,11 @@ class Flying_Enemy:
     FPS = 12
     CHASE_DISTANCE_SQ = 600 ** 2
     IDLE_INTERVAL = 2.0
-    def __init__(self):
+    def __init__(self, x):
         if len(Flying_Enemy.images) == 0:
             Flying_Enemy.load_all_images()
 
-        self.pos = (random.choice([-30, get_canvas_width()+30]), 600)
+        self.pos = (x,random.choice([600,700,800,750,650]))
         self.delta = 0.1, 0.1
         self.life = 80
         self.dir = 0

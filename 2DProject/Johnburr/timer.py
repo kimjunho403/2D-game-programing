@@ -13,7 +13,7 @@ class Timer:
         self.image = load_image(RES_DIR + '/timerfiles/cut.png')
         self.second_image = load_image(RES_DIR + '/timerfiles/0.png')
         self.second_10_image = load_image(RES_DIR + '/timerfiles/0.png')
-        self.minute_image = load_image(RES_DIR + '/timerfiles/5.png')
+        self.minute_image = load_image(RES_DIR + '/timerfiles/2.png')
         char = '/timerfiles/%d.png'
 
     def draw(self):

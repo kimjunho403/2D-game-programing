@@ -1,11 +1,12 @@
 from pico2d import *
 import gfw
+import gobj
 RES_DIR = './res'
 
 def init(p):
     global space,floor,player
-    space = gfw.image.load(RES_DIR +'/bg.png')
-    floor = gfw.image.load(RES_DIR +'/floor.png')
+    space = gfw.image.load(gobj.res('bg.png'))
+    floor = gfw.image.load(gobj.res('floor.png'))
     player = p
 def draw():
     x,y = get_canvas_width() //2,get_canvas_height() //2

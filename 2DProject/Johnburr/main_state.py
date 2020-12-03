@@ -28,13 +28,13 @@ def enter():
     Flying_Enemy.load_all_images()
 
     global bg_music, flip_wav, enemy_die_wav, spaceship_wav
-    bg_music = load_music('res/main_state_sound.mp3')
+    bg_music = load_music('./res/main_state_sound.mp3')
     bg_music.set_volume(60)
     bg_music.repeat_play()
-    flip_wav = load_wav('res/beshot.wav')
-    enemy_die_wav = load_wav('res/enemy_die.wav')
-    spaceship_wav = load_wav('res/spaceship_die.wav')
-    flip_wav.set_volume(50)
+    flip_wav = load_wav('./res/beshot.wav')
+    enemy_die_wav = load_wav('./res/enemy_die.wav')
+    spaceship_wav = load_wav('./res/spaceship_die.wav')
+    flip_wav.set_volume(100)
     enemy_die_wav.set_volume(200)
 
 
@@ -120,6 +120,8 @@ def pause():
     enemy_gen.num = 1
     enemy_gen.num_time = 0
     enemy_gen.next_wave = 0
+    enemy_gen.swh =0
+    enemy_gen.GEN_X = [ -30,1710 ]
     Enemy.choice_num = 1
 
 def resume():

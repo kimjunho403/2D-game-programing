@@ -12,13 +12,13 @@ class Enemy:
     FPS = 12
     CHASE_DISTANCE_SQ = 600 ** 2
     IDLE_INTERVAL = 2.0
-    def __init__(self, num):
+    def __init__(self, num, x):
         if len(Enemy.images) == 0:
             Enemy.load_all_images()
 
-        self.pos = (random.choice([-30, get_canvas_width()+30]), 140)
+        self.pos = (x, 140)
         self.delta = 0.1, 0.1
-        self.life = 100
+        self.life = 120
         self.dir = 0
         self.power = 1
         self.choice_num = random.randrange(1, num+1)
@@ -48,20 +48,17 @@ class Enemy:
             self.char = 'blue'
         elif self.choice_num == 5:
             self.char = 'armor'
-        print(self.choice_num)
-        print(self.char)
         self.images = Enemy.load_images(self.char)
 
         if self.char == 'green':
             self.shot_time = 0.5
             self.speed = 200
             self.power = 1
-            self.life = 100
             self.shot_speed = 0.6
         elif self.char == 'gray':
             self.shot_speed = 0.3
         elif self.char == 'armor':
-            self.life = 300
+            self.life = 400
         elif self.char == 'red':
             self.speed = 500
         elif self.char == 'blue':

@@ -24,7 +24,9 @@ class Enemy_Bullet:
     def update(self):
         self.shot_to_player()
 
-        if self.x > get_canvas_width() + Enemy_Bullet.SIZE:
+        if self.x > get_canvas_width() + Enemy_Bullet.SIZE+30:
+            self.remove()
+        if self.x < 0+ Enemy_Bullet.SIZE-30:
             self.remove()
 
 
