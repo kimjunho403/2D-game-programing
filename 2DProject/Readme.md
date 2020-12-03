@@ -8,6 +8,10 @@
 
 ## 게임 방법 및 방식
 ![help_state](https://user-images.githubusercontent.com/71173523/101070077-3568bb00-35de-11eb-9286-5ceb94ac8bb9.png)
+타이머가 0이 되었을때 우주선으로 가면
+![adsadqdwqwd](https://user-images.githubusercontent.com/71173523/101073735-3cde9300-35e3-11eb-8d6d-0a0bd861ba84.PNG)
+우주선이 출발하고 우주선이 화면 밖으로 나가게 되면 클리어합니다.
+![승리](https://user-images.githubusercontent.com/71173523/101073825-5a136180-35e3-11eb-8c43-14e5da20dc7c.PNG)
 ## 적 특징
 ![cats](https://user-images.githubusercontent.com/71173523/101072139-ecfecc80-35e0-11eb-8aa4-faae5afa1150.jpg)
 ## 인 게임 화면
