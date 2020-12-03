@@ -112,6 +112,12 @@ def handle_event(e):
         gfw.quit()
     elif e.type == SDL_KEYDOWN:
         if e.key == SDLK_ESCAPE:
+            enemy_gen.num = 1
+            enemy_gen.num_time = 0
+            enemy_gen.next_wave = 0
+            enemy_gen.swh = 0
+            enemy_gen.GEN_X = [-30, 1710]
+            Enemy.choice_num = 1
             gfw.pop()
 
     player.handle_event(e)

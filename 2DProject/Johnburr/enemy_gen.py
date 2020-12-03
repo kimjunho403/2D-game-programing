@@ -53,11 +53,11 @@ def generate_wave():
 
     wave_index += 1
     if difficulty == 0:
-        next_wave = random.uniform(5, 7)
+        next_wave = random.uniform(6, 8)
     elif difficulty == 1:
-        next_wave = random.uniform(4, 6)
+        next_wave = random.uniform(5, 7)
     elif difficulty == 2:
-        next_wave = random.uniform(3, 5)
+        next_wave = random.uniform(4, 6)
 
 LEVEL_ADJUST_PERCENTS = [ 10, 15, 15, 40, 15, 5 ] # -3 ~ 2
 
