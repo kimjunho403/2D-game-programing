@@ -8,8 +8,8 @@
 
 ## 게임 방법 및 방식
 ![help_state](https://user-images.githubusercontent.com/71173523/101070077-3568bb00-35de-11eb-9286-5ceb94ac8bb9.png)
-
-
+## 적 특징
+![cats](https://user-images.githubusercontent.com/71173523/101072139-ecfecc80-35e0-11eb-8aa4-faae5afa1150.jpg)
 ## 인 게임 화면
 ![캡처](https://user-images.githubusercontent.com/71173523/101070173-54ffe380-35de-11eb-9396-c1e3d1faf267.PNG)
 ========================================
