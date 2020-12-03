@@ -134,9 +134,7 @@ def resume():
     pass
 
 def exit():
-    global bg_music
-    bg_music.stop()
-    del bg_music
+    pass
 
 
 if  __name__ == '__main__':

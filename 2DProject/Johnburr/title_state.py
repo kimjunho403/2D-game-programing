@@ -1,6 +1,6 @@
 import gfw
 from pico2d import *
-import main_state
+import help_state
 import enemy_gen
 RES_DIR = './res'
 def enter():
@@ -125,23 +125,20 @@ def handle_mouse(e):
             gfw.quit()
         if select_1 == True:
             enemy_gen.difficulty = 0
-            gfw.push(main_state)
+            gfw.push(help_state)
         if select_2 == True:
             enemy_gen.difficulty = 1
-            gfw.push(main_state)
+            gfw.push(help_state)
         if select_3 == True:
             enemy_gen.difficulty = 2
-            gfw.push(main_state)
+            gfw.push(help_state)
 
 
 
 
 
 def exit():
-    global image, bg_music
-    bg_music.stop()
-    del bg_music
-    del image
+    pass
 
 
 def pause():
