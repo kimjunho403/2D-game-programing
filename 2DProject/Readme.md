@@ -12,6 +12,8 @@
 ![adsadqdwqwd](https://user-images.githubusercontent.com/71173523/101073735-3cde9300-35e3-11eb-8d6d-0a0bd861ba84.PNG)
 우주선이 출발하고 우주선이 화면 밖으로 나가게 되면 클리어합니다.
 ![승리](https://user-images.githubusercontent.com/71173523/101073825-5a136180-35e3-11eb-8c43-14e5da20dc7c.PNG)
+## 게임 Object 설명
+![ㄹㄴㅁㄹㄴㅁ](https://user-images.githubusercontent.com/71173523/101143144-dea0c700-3659-11eb-8b5c-2ce85a402cca.jpg)
 ## 적 특징
 ![cats](https://user-images.githubusercontent.com/71173523/101072139-ecfecc80-35e0-11eb-8aa4-faae5afa1150.jpg)
 ## 인 게임 화면
